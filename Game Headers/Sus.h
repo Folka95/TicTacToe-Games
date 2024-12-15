@@ -186,7 +186,10 @@ void _Sus_Player< DataType >::getmove(int &x, int &y) {
 
 
 template < typename DataType >
-_Sus_Random_Player< DataType >::_Sus_Random_Player(DataType symbol) : RandomPlayer< DataType >(symbol){}
+_Sus_Random_Player< DataType >::_Sus_Random_Player(DataType symbol) : RandomPlayer< DataType >(symbol) {
+    this->name = "Random Computer ";
+    this->name += symbol;
+}
 
 template<typename DataType>
 void _Sus_Random_Player< DataType >::getmove(int &x, int &y) {
