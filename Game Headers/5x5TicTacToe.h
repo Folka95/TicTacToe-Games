@@ -204,9 +204,6 @@ void _5x5TicTacToe_Player< DataType >::getmove(int &x, int &y) {
 }
 
 
-
-
-
 template < typename DataType >
 _5x5TicTacToe_Random_Player< DataType >::_5x5TicTacToe_Random_Player(DataType symbol) : RandomPlayer< DataType >(symbol){
     this->name = "Random Computer player ";
@@ -241,12 +238,13 @@ int _5x5TicTacToe_AI_Player< DataType >::minMax(auto &myBoard, char me, char opp
         return (isMaximizing ? -1 : 1);
     }
     const char Empty = ' ';
-    int val = 0;
+    const int inf = isMaximizing ? -1e9 : 1e9;
+    int val = inf;
     for(int i = 1; i <= this->dimension; i++) {
         for(int j = 1; j <= this->dimension; j++) {
             if(this->boardPtr->update_board(i , j , me)) {
                 int curVal = minMax(myBoard , opp , me , !isMaximizing);
-                if(val == -1) {
+                if(val == inf) {
                     val = curVal;
                 }
                 else {
@@ -272,14 +270,14 @@ pair< int , int > _5x5TicTacToe_AI_Player< DataType >::getBestMove() {
         swap(me , opp);
     }
     const char Empty = ' ';
-    int maxVal = -1;
+    int maxVal = -1e9;
     int xx = 1;
     int yy = 1;
     for(int i = 1; i <= this->dimension; i++) {
         for(int j = 1; j <= this->dimension; j++) {
             if(this->boardPtr->update_board(i , j , me)) {
                 int curVal = minMax(i, opp , me , false);
-                if(maxVal == -1 || maxVal < curVal) {
+                if(maxVal == -1e9 || maxVal < curVal) {
                     maxVal = curVal;
                     xx = i;
                     yy = j;
@@ -294,9 +292,29 @@ pair< int , int > _5x5TicTacToe_AI_Player< DataType >::getBestMove() {
 
 template < typename DataType >
 void _5x5TicTacToe_AI_Player< DataType >::getmove(int &x, int &y) {
-    auto [xx , yy] = getBestMove();
-    x = xx;
-    y = yy;
+    const char Empty = ' ';
+    int cnt = 0;
+    for(int i = 1; i <= this->dimension; i++) {
+        for(int j = 1; j <= this->dimension; j++) {
+            if(this->boardPtr->update_board(i , j , this->symbol)) {
+                cnt++;
+                this->boardPtr->update_board(i , j , Empty);
+            }
+        }
+    }
+    auto next = [](int l, int r) {
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<long long> distr(l , r);
+        return distr(gen);
+    };
+    y = next(1 , this->dimension);
+    x = next(1 , this->dimension);
+    if(cnt < 10) {
+        auto [xx , yy] = getBestMove();
+        x = xx;
+        y = yy;
+    }
 }
 
 
