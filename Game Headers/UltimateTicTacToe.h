@@ -29,8 +29,6 @@ public:
 
 template < typename DataType >
 class _UltimateTicTacToe_Random_Player : public RandomPlayer< DataType >{
-private:
-    vector< pair< int , int > > all;
 public:
     _UltimateTicTacToe_Random_Player (DataType symbol);
     void getmove(int &x, int &y) ;
