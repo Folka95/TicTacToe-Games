@@ -209,7 +209,8 @@ void _5x5TicTacToe_Player< DataType >::getmove(int &x, int &y) {
 
 template < typename DataType >
 _5x5TicTacToe_Random_Player< DataType >::_5x5TicTacToe_Random_Player(DataType symbol) : RandomPlayer< DataType >(symbol){
-    this->name = "Random Computer player " + symbol;
+    this->name = "Random Computer player ";
+    this->name += symbol;
     this->dimension = 5;
 }
 
