@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 #include "inputValidator.h"
 #include "GameUniverse.h"
 #include "5x5TicTacToe.h"
@@ -96,7 +95,6 @@ void getPlayrs(auto B, Player<symbolType>* players[], char p1, char p2, bool swa
     setPlayer(B , players[0] , type[0], symbols[0] , names[0 ^ swapNames]);
     setPlayer(B , players[1] , type[1], symbols[1] , names[1 ^ swapNames]);
 }
-
 
 template <typename symbolType>
 void checkWinner(auto myBoard, Player<symbolType>* players[]) {
@@ -200,6 +198,9 @@ void game_9_Sus() {
 }
 
 bool getChoice(int &choice) {
+    // system("cls");
+    // cout << "\033[2J\033[H";
+
     cout << "Game Menu :-" << endl;
     cout << "1- Pyramid Tic Tac Toe    2- Four In Row             3- 5x5 Tic Tac Toe" << endl;
     cout << "4- Word Tic Tac Toe       5- Numerical Tic Tac Toe   6- Misere Tic Tac Toe" << endl;
@@ -236,8 +237,7 @@ int main()
             game_6_MisereTicTacToe();
         }
         else if (7 == choice) {
-            // Assuming there's no game for choice 7, you can either handle it or leave it empty.
-            std::cout << "Invalid game choice!" << std::endl;
+
         }
         else if (8 == choice) {
             game_8_UltimateTicTacToe();
@@ -245,6 +245,7 @@ int main()
         else if (9 == choice) {
             game_9_Sus();
         }
+        system("PAUSE");
     }while(getChoice(choice));
     cout << "Finally this is working!!!!!!!!" << endl;
     return 0;
