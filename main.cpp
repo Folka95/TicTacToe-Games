@@ -189,10 +189,25 @@ void game_9_Sus() {
     cleanEnvironment<char>(myBoard , players);
 }
 
+bool getChoice(int choice) {
+    cout << "Game Menu :-" << endl;
+    cout << "1- Game name1           2- Game name2           3- Game name3" << endl;
+    cout << "0- Exit";
+    choice = input.readExactChoice({1 , 2 , 3 , 4, 5, 6, 8, 9, 0});
+    if(choice == 0)
+        return false;
+    return true;
+}
+
 int main()
 {
     cout << "Choose your game please" << endl;
+    int choice = 0;
+    do {
+        if(choice == 1) {
 
+        }
+    }while(getChoice(choice));
     cout << "Finally this is working!!!!!!!!" << endl;
     return 0;
 }
