@@ -1,9 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 #include "inputValidator.h"
 #include "GameUniverse.h"
 #include "5x5TicTacToe.h"
 #include "MisereTicTacToe.h"
+#include "UltimateTicTacToe.h"
 #include "Sus.h"
 #include "FourInARow.h"
 #include "WordTicTacToeAI.h"
@@ -12,7 +14,6 @@ using namespace std;
 #include "Pyramid_MinMaxPlayer.h"
 #include "WordTicTacToe.h"
 inputValidator input;
-
 
 template < template <typename> class GameHumanPlayer, template <typename> class GameRandomPlayer, template <typename> class GameAIPlayer , typename symbolType>
 void getPlayrs(auto B, Player<char>* players[], char p1, char p2, bool swapNames = false) {
@@ -44,7 +45,7 @@ void getPlayrs(auto B, Player<char>* players[], char p1, char p2, bool swapNames
             name = input.readLine();
         }
         else {
-            name = "Smart AI Player";
+            name = "Smart AI Player" + symbol;
         }
         return choice;
     };
@@ -83,7 +84,7 @@ void getPlayrs(auto B, Player<symbolType>* players[], char p1, char p2, bool swa
             name = input.readLine();
         }
         else {
-            name = "Smart AI Player";
+            name = "Smart AI Player" + symbol;
         }
         return choice;
     };
@@ -100,13 +101,13 @@ void getPlayrs(auto B, Player<symbolType>* players[], char p1, char p2, bool swa
 template <typename symbolType>
 void checkWinner(auto myBoard, Player<symbolType>* players[]) {
     if(myBoard->isWinner(players[0]->getsymbol())) {
-        cout << "P 1 is winner" << endl;
+        cout << players[0]->getname() << " is winner" << endl;
     }
     else if(myBoard->isWinner(players[1]->getsymbol())) {
-        cout << "P 2 is winner" << endl;
+        cout << players[1]->getname() << " is winner" << endl;
     }
     else {
-        cout << "draw" << endl;
+        cout << "It is a draw!" << endl;
     }
 }
 
@@ -180,6 +181,15 @@ void game_6_MisereTicTacToe() {
     cleanEnvironment<char>(myBoard , players);
 }
 
+void game_8_UltimateTicTacToe() {
+    Player<char>* players[2];
+    _UltimateTicTacToe_Board<char>* myBoard = new _UltimateTicTacToe_Board<char>();
+    getPlayrs<_UltimateTicTacToe_Player , _UltimateTicTacToe_Random_Player , char>(myBoard , players , 'X' , 'O');
+    GameManager< char > gameManger(myBoard, players);
+    gameManger.run();
+    cleanEnvironment<char>(myBoard , players);
+}
+
 void game_9_Sus() {
     Player<char>* players[2];
     _Sus_Board<char>* myBoard = new _Sus_Board<char>();
@@ -189,10 +199,12 @@ void game_9_Sus() {
     cleanEnvironment<char>(myBoard , players);
 }
 
-bool getChoice(int choice) {
+bool getChoice(int &choice) {
     cout << "Game Menu :-" << endl;
-    cout << "1- Game name1           2- Game name2           3- Game name3" << endl;
-    cout << "0- Exit";
+    cout << "1- Pyramid Tic Tac Toe    2- Four In Row             3- 5x5 Tic Tac Toe" << endl;
+    cout << "4- Word Tic Tac Toe       5- Numerical Tic Tac Toe   6- Misere Tic Tac Toe" << endl;
+    cout << "8- Ultimate Tic Tac Toe   9- Sus                     0- Exit" << endl;
+    cout << "Enter your choice :";
     choice = input.readExactChoice({1 , 2 , 3 , 4, 5, 6, 8, 9, 0});
     if(choice == 0)
         return false;
@@ -202,10 +214,36 @@ bool getChoice(int choice) {
 int main()
 {
     cout << "Choose your game please" << endl;
+
     int choice = 0;
     do {
-        if(choice == 1) {
-
+        if (1 == choice) {
+            game_1_PyramicTicTacToe();
+        }
+        else if (2 == choice) {
+            game_2_FourInRow();
+        }
+        else if (3 == choice) {
+            game_3_5x5TicTacToe();
+        }
+        else if (4 == choice) {
+            game_4_WordTicTacToe();
+        }
+        else if (5 == choice) {
+            game_5_NumericalTicTacToe();
+        }
+        else if (6 == choice) {
+            game_6_MisereTicTacToe();
+        }
+        else if (7 == choice) {
+            // Assuming there's no game for choice 7, you can either handle it or leave it empty.
+            std::cout << "Invalid game choice!" << std::endl;
+        }
+        else if (8 == choice) {
+            game_8_UltimateTicTacToe();
+        }
+        else if (9 == choice) {
+            game_9_Sus();
         }
     }while(getChoice(choice));
     cout << "Finally this is working!!!!!!!!" << endl;
