@@ -162,14 +162,21 @@ void _MisereTicTacToe_Player< DataType >::getmove(int &x, int &y) {
 
 template < typename DataType >
 _MisereTicTacToe_Random_Player< DataType >::_MisereTicTacToe_Random_Player(DataType symbol) : RandomPlayer< DataType >(symbol){
-    this->name = "Random Computer player " + symbol;
+    this->name = "Random Computer player ";
+    this->name += symbol;
     this->dimension = 3;
 }
 
 template < typename DataType >
 void _MisereTicTacToe_Random_Player< DataType >::getmove(int &x, int &y) {
-    y = rand() % (this->dimension) + 1;
-    x = rand() % (this->dimension) + 1;
+    auto next = [](int l, int r) {
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<long long> distr(l , r);
+        return distr(gen);
+    };
+    y = next(1 , this->dimension);
+    x = next(1 , this->dimension);
 }
 
 
