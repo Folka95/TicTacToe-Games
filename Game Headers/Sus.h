@@ -39,15 +39,6 @@ public:
     void getmove(int &x, int &y) ;
 };
 
-
-template <typename DataType>
-class _Sus_AI_Player : public RandomPlayer< DataType > {
-public:
-    _Sus_AI_Player(DataType symbol);
-    void getmove(int &x, int &y);
-};
-
-
 // <-- Implementation --> //
 
 template<typename DataType>
@@ -202,21 +193,6 @@ void _Sus_Random_Player< DataType >::getmove(int &x, int &y) {
     if(this->boardPtr->getN_moves() == 9) {
         return;
     }
-    int idx = rand() % 9 + 1;
-    y = idx % 3 == 0 ? 3 : idx % 3;
-    x = (idx + 2) / 3;
-}
-
-
-template < typename DataType >
-_Sus_AI_Player< DataType >::_Sus_AI_Player(DataType symbol) : RandomPlayer< DataType >(symbol){}
-
-template<typename DataType>
-void _Sus_AI_Player< DataType >::getmove(int &x, int &y) {
-    if(this->boardPtr->getN_moves() == 9) {
-        return;
-    }
-
     int idx = rand() % 9 + 1;
     y = idx % 3 == 0 ? 3 : idx % 3;
     x = (idx + 2) / 3;
