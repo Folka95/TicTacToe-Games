@@ -185,7 +185,8 @@ void _MisereTicTacToe_Random_Player< DataType >::getmove(int &x, int &y) {
 
 template < typename DataType >
 _MisereTicTacToe_AI_Player< DataType >::_MisereTicTacToe_AI_Player(DataType symbol) : RandomPlayer< DataType >(symbol){
-    this->name = "AI Computer player " + symbol;
+    this->name = "AI Computer player ";
+    this->name += symbol;
     this->dimension = 3;
 }
 
