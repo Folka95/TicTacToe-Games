@@ -1,11 +1,6 @@
 #ifndef _4X4_TICTACTOE_H
 #define _4X4_TICTACTOE_H
 
-#include "BoardGame_Classes.h"
-#include <bits/stdc++.h>
-
-using namespace std;
-
 template <typename T>
 class TTT4x4Board : public Board<T> {
 public:
