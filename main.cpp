@@ -3,6 +3,7 @@ using namespace std;
 #include "inputValidator.h"
 #include "GameUniverse.h"
 #include "5x5TicTacToe.h"
+#include "4x4_TicTacToe.h"
 #include "MisereTicTacToe.h"
 #include "UltimateTicTacToe.h"
 #include "Sus.h"
@@ -179,6 +180,15 @@ void game_6_MisereTicTacToe() {
     cleanEnvironment<char>(myBoard , players);
 }
 
+void game_7_4x4TicTacToe() {
+    Player<char>* players[2];
+    TTT4x4Board<char>* myBoard = new TTT4x4Board<char>();
+    getPlayrs<TTT4x4Player , TTT4x4RandomPlayer , char>(myBoard , players , 'X' , 'O');
+    GameManager< char > gameManger(myBoard, players);
+    gameManger.run();
+    cleanEnvironment<char>(myBoard , players);
+}
+
 void game_8_UltimateTicTacToe() {
     Player<char>* players[2];
     _UltimateTicTacToe_Board<char>* myBoard = new _UltimateTicTacToe_Board<char>();
@@ -200,13 +210,14 @@ void game_9_Sus() {
 bool getChoice(int &choice) {
     // system("cls");
     // cout << "\033[2J\033[H";
-
+    cout << endl;
     cout << "Game Menu :-" << endl;
     cout << "1- Pyramid Tic Tac Toe    2- Four In Row             3- 5x5 Tic Tac Toe" << endl;
     cout << "4- Word Tic Tac Toe       5- Numerical Tic Tac Toe   6- Misere Tic Tac Toe" << endl;
-    cout << "8- Ultimate Tic Tac Toe   9- Sus                     0- Exit" << endl;
+    cout << "7- 4x4 Tic Tac Toe        8- Ultimate Tic Tac Toe    9- Sus " << endl;
+    cout << "0 - Exit" << endl;
     cout << "Enter your choice :";
-    choice = input.readExactChoice({1 , 2 , 3 , 4, 5, 6, 8, 9, 0});
+    choice = input.readRangeChoice(0 , 9);
     if(choice == 0)
         return false;
     return true;
@@ -214,7 +225,7 @@ bool getChoice(int &choice) {
 
 int main()
 {
-    cout << "Choose your game please" << endl;
+    cout << "Welcome to the best Tic Tac Toe version!!!!" << endl;
 
     int choice = 0;
     do {
@@ -237,7 +248,7 @@ int main()
             game_6_MisereTicTacToe();
         }
         else if (7 == choice) {
-
+            game_7_4x4TicTacToe();
         }
         else if (8 == choice) {
             game_8_UltimateTicTacToe();
@@ -245,7 +256,7 @@ int main()
         else if (9 == choice) {
             game_9_Sus();
         }
-        system("PAUSE");
+        // system("PAUSE");
     }while(getChoice(choice));
     cout << "Finally this is working!!!!!!!!" << endl;
     return 0;
